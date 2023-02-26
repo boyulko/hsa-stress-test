@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+
+  stress-test:
+    container_name: stress-test
+    build:
+      context: stress-test
+      dockerfile: Dockerfile
+    image: stress-test:latest
+    depends_on:
+      - mongo
+    ports:
+      - '127.0.0.1:8080:8080'
+
+volumes:
+  grafana_data: { }
+  influxdb_data: { }
