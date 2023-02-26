@@ -1,6 +1,7 @@
 package com.hsa.web.app.stresstest.api;
 
-import com.hsa.web.app.stresstest.api.dto.MasterclassApplicationDto;
+import com.hsa.web.app.stresstest.api.dto.MasterclassApplicationBatchRequest;
+import com.hsa.web.app.stresstest.entity.MasterclassApplication;
 import com.hsa.web.app.stresstest.service.MasterclassApplicationService;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,17 @@ public class MasterclassApplicationResource {
   private final MasterclassApplicationService service;
 
   @PostMapping("/applications")
-  public ResponseEntity<Void> createMasterclassApplication(@RequestBody MasterclassApplicationDto dto) {
-    service.saveMasterclassApplication(dto);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+  public ResponseEntity<Set<MasterclassApplication>> createMasterclassApplication(
+      @RequestBody MasterclassApplicationBatchRequest masterclassApplicationBatchRequest) {
+    Set<MasterclassApplication> applications = service.saveMasterclassApplication(
+        masterclassApplicationBatchRequest);
+    return ResponseEntity.status(HttpStatus.CREATED).body(applications);
+  }
+
+  @GetMapping("/applications")
+  public ResponseEntity<Void> get100MasterclassApplications() {
+    service.get100MasterclassApplications();
+    return ResponseEntity.ok().build();
   }
 
 }

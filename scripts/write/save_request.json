@@ -1,0 +1,10 @@
+{
+    "operationsCount": 20,
+    "masterclassApplicationDto": {
+        "firstName": "first_name",
+        "lastName": "last_name",
+        "age": 35,
+        "currentCompany": "current-company",
+        "yearsOfExperience": 15
+    }
+}
